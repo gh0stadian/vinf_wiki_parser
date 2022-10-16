@@ -25,7 +25,6 @@ class WikiParser:
         with open(musician_file_name, 'w', encoding="utf8") as f:
             for musician in self.musicians:
                 f.write(str(musician))
-            f.write("\n" + str(len(self.musicians)))
 
     def filter_musicians(self, pages):
         musicians = []

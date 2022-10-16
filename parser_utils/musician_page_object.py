@@ -12,8 +12,6 @@ class MusicianPageObject(GenericPageObject):
         infobox = regexes.PAGE_GET_INFOBOX.search(text)
         if infobox is not None:
             self.infobox = InfoboxObject(regexes.PAGE_GET_INFOBOX.search(text).group())
-        else:
-            a = 1
 
     def __str__(self):
         o = "=" * 80 + "\n"
