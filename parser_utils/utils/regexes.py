@@ -7,6 +7,7 @@ SPLIT_PAGES = re.compile(r"<page>(.*?)</page>", re.DOTALL)
 PAGE_GET_TITLE = re.compile(r"<title>(.*?)</title>", re.DOTALL)
 PAGE_GET_OCCUPATION = re.compile(r"\| occupation *?= ({{.*?}}|.*?\n)", re.DOTALL)
 PAGE_GET_INFOBOX = re.compile(r"{{Infobox.*?\n(?:[^{}]*|(?:{{.*?}}))*}}", flags=re.I | re.DOTALL)
+PAGE_GET_DISCOGRAPHY = re.compile(r"== *?Discography *==\n(.*?)\n==\w", re.DOTALL)
 
 # INFOBOX REGEXES
 INFOBOX_BIRTH_YMD = re.compile(r"(\d\d\d\d)\| *(\d+)\| *(\d+)")
