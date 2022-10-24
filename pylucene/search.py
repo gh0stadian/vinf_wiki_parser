@@ -8,11 +8,12 @@ from org.apache.lucene.queryparser.classic import QueryParser
 from org.apache.lucene.analysis.standard import StandardAnalyzer
 from parser_utils.utils.musician_page_object import MusicianPageObject
 
+
 def search(text):
     index_path = File("/mnt/data/index").toPath()
     store = FSDirectory.open(index_path)
     searcher = IndexSearcher(DirectoryReader.open(store))
-    query = QueryParser("title", StandardAnalyzer()).parse(text)
+    query = QueryParser("full_info", StandardAnalyzer()).parse(text)
 
     scoreDocs = searcher.search(query, 50).scoreDocs
     if not scoreDocs:
@@ -22,7 +23,8 @@ def search(text):
         doc = searcher.doc(scoreDoc.doc)
         json = doc.get("full_info")
         musician = MusicianPageObject.from_json(json)
-        print(str(musician)[:500])
+        print(str(musician))
+
 
 if __name__ == '__main__':
     lucene.initVM()

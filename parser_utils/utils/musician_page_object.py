@@ -12,8 +12,8 @@ class MusicianPageObject:
     @classmethod
     def from_raw(cls, text):
         title = regexes.PAGE_GET_TITLE.search(text).group(1)
-        if infobox := regexes.PAGE_GET_INFOBOX.search(text):
-            infobox = InfoboxObject.from_raw(infobox.group())
+        if infobox := regexes.PAGE_GET_BOX.findall(text):
+            infobox = InfoboxObject.from_raw(list(filter(regexes.PAGE_GET_INFOBOX.match, infobox))[0])
         else:
             infobox = InfoboxObject({})
 

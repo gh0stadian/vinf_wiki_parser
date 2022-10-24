@@ -9,7 +9,7 @@ class DiscographyObject():
     def from_raw(cls, raw_discography):
         # categories = raw_discography.split("===")
         regex = re.compile(r"''\[*(.*?)\]*''")
-        albums = regex.findall(raw_discography)
+        albums = list(set(regex.findall(raw_discography)))
         return DiscographyObject(albums)
 
     def __str__(self):

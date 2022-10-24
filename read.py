@@ -5,7 +5,7 @@ def main():
     with open("data/musicians", encoding="utf8") as f:
         for line in f:
             musician = MusicianPageObject.from_json(line)
-            print(musician)
+            print(musician.about)
 
     return
 
