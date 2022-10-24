@@ -13,9 +13,12 @@ class MusicianPageObject:
     def from_raw(cls, text):
         title = regexes.PAGE_GET_TITLE.search(text).group(1)
         if infobox := regexes.PAGE_GET_BOX.findall(text):
-            infobox = InfoboxObject.from_raw(list(filter(regexes.PAGE_GET_INFOBOX.match, infobox))[0])
+            if infobox := list(filter(regexes.PAGE_GET_INFOBOX.match, infobox)):
+                infobox = InfoboxObject.from_raw(infobox[0])
+            else:
+                return None
         else:
-            infobox = InfoboxObject({})
+            return None
 
         if discography := regexes.PAGE_GET_DISCOGRAPHY.search(text):
             discography = DiscographyObject.from_raw(discography.group(1))

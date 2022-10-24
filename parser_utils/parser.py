@@ -38,7 +38,8 @@ class WikiParser:
             occupations = regexes.PAGE_GET_OCCUPATION.findall(page)
             for occupation in occupations:
                 if self.is_musician_page(occupation):
-                    musicians.append(MusicianPageObject.from_raw(page))
+                    if musician_object := MusicianPageObject.from_raw(page):
+                        musicians.append(musician_object)
 
         return musicians
 
