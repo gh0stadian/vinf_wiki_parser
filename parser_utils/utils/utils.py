@@ -39,7 +39,6 @@ def remove_special_characters(text):
     text = re.sub(regexes.INFOBOX_LT_GT, '', text)
     text = regexes.INFOBOX_MARRIAGE.sub(split_or, text)
     text = re.sub(regexes.INFOBOX_CITATION, '', text)
-
     return text
 
 def split_or(text):
