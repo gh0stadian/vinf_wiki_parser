@@ -1,5 +1,4 @@
 import re
-import regex
 
 # DOCUMENT REGEXES
 SPLIT_PAGES = re.compile(r"<page>(.*?)</page>", re.DOTALL)
@@ -7,8 +6,8 @@ SPLIT_PAGES = re.compile(r"<page>(.*?)</page>", re.DOTALL)
 # PAGE REGEXES
 PAGE_GET_TITLE = re.compile(r"<title>(.*?)</title>", re.DOTALL)
 PAGE_GET_OCCUPATION = re.compile(r"\| occupation *?= ({{.*?}}|.*?\n)", re.DOTALL)
-PAGE_GET_BOX = regex.compile(r"\{\{((?:[^\{\}]|(?R))*)\}\}")
-PAGE_GET_INFOBOX = regex.compile(r"^Infobox.*", re.I)
+PAGE_GET_BOX = re.compile(r"\{\{(?:(?:\{\{(?:(?:\{\{(?:[^{}])*\}\})|(?:[^{}]))*\}\})|(?:[^{}]))*\}\}")
+PAGE_GET_INFOBOX = re.compile(r"^\{\{Infobox.*", re.I)
 PAGE_GET_DISCOGRAPHY = re.compile(r"== *?Discography *==\n(.*?)\n==\w", re.DOTALL)
 
 # INFOBOX REGEXES

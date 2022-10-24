@@ -7,7 +7,7 @@ def main():
     parser = WikiParser("data/musicians")
 
     # TODO UNCOMMENT AND SET UNLIMITED
-    for i in range(500):
+    for i in range(5000):
         chunk = wiki.get_chunk()
         parser.parse(chunk)
 
