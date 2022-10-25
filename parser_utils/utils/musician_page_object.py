@@ -16,7 +16,6 @@ class MusicianPageObject:
             infobox = InfoboxObject.from_raw(infobox[0])
         else:
             return None
-
         if discography := regexes.PAGE_GET_DISCOGRAPHY.search(text):
             discography = DiscographyObject.from_raw(discography.group(1))
         else:

@@ -31,7 +31,6 @@ def parse_death_date(text):
 
 
 def remove_special_characters(text):
-    text = remove_brackets(text)
     text = parse_lists(text)
     text = text.replace('&amp;', '&')
     text = text.replace('&ndash;', '-')
@@ -39,6 +38,7 @@ def remove_special_characters(text):
     text = re.sub(regexes.INFOBOX_LT_GT, '', text)
     text = regexes.INFOBOX_MARRIAGE.sub(split_or, text)
     text = re.sub(regexes.INFOBOX_CITATION, '', text)
+    text = remove_brackets(text)
     return text
 
 def split_or(text):
@@ -50,6 +50,7 @@ def split_star(text):
 
 def remove_brackets(text):
     text = text.replace("[[", '')
+    text = text.replace("\n}}", '')
     return text.replace("]]", '')
 
 
@@ -60,3 +61,7 @@ def parse_lists(text):
     if text.lower().startswith(('{{plain', '{{flat')):
         return split_star(text)
     return text
+
+
+def find_singles(text):
+    return []
