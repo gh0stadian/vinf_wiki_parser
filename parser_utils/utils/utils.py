@@ -41,12 +41,15 @@ def remove_special_characters(text):
     text = remove_brackets(text)
     return text
 
+
 def split_or(text):
     if text.group(1):
         return ",".join(text.group(1).split('|'))
 
+
 def split_star(text):
     return (", ".join(text.split('*')[1:]))[:-2].replace('\n', '')
+
 
 def remove_brackets(text):
     text = text.replace("[[", '')
@@ -65,3 +68,28 @@ def parse_lists(text):
 
 def find_singles(text):
     return []
+
+
+def remove_html_tags(text):
+    text = regexes.AWARDS_ROWSPAN.sub("***\\1***", text)
+    return regexes.AWARDS_HTML_TAG.sub("", text)
+
+
+def remove_header_footer(text):
+    a = regexes.AWARDS_HEADER_1.sub("", text)
+    a = regexes.AWARDS_HEADER_2.sub("", a)
+    a = a.replace("\n|}", "")
+    return a
+
+
+def preprocess_awards(text):
+    text = text.replace('&amp;', '&')
+    text = text.replace('&ndash;', '-')
+    text = text.replace('&quot;', '"')
+    text = text.replace('\n!', '\n|')
+    text = re.sub(regexes.INFOBOX_LT_GT, '', text)
+    text = re.sub(regexes.INFOBOX_CITATION, '', text)
+    text = re.sub(regexes.AWARDS_NOMINATED_FLAG, "Nominated", text)
+    text = re.sub(regexes.AWARDS_WINNER_FLAG, "Winner", text)
+    text = remove_brackets(text)
+    return text
