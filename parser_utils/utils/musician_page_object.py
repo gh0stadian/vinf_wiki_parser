@@ -36,9 +36,10 @@ class MusicianPageObject:
     def from_json(cls, json_dump):
         object = json.loads(json_dump)
         title = object['title']
-        about = InfoboxObject(object['about'])
-        discography = DiscographyObject(object['songs'])
-        return MusicianPageObject(title, about, discography)
+        about = InfoboxObject(eval(object['about']))
+        discography = DiscographyObject(eval(object['songs']))
+        awards = AwardsObject(eval(object['awards_list']))
+        return MusicianPageObject(title, about, discography, awards)
 
     def to_json(self):
         return {"title": self.title, **self.about.__dict__, **self.discography.__dict__, **self.awards.__dict__}

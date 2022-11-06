@@ -22,7 +22,7 @@ class DiscographyObject():
     def __str__(self):
         o = "Discography".ljust(80, "-") + "\n"
         for item in self.songs:
-            if isinstance(item, list):
+            if isinstance(item, tuple):
                 o += " " * 5 + f"{item[0]}\n"
                 for songs in item[1]:
                     o += " " * 10 + f"{songs}\n"
