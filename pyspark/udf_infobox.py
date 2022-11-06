@@ -11,7 +11,7 @@ def parse_infobox(body):
     INFOBOX_BIRTH_Y = re.compile(r"\{\{birth.*(\d\d\d\d)", flags=re.I | re.DOTALL)
     INFOBOX_DEATH_YMD = re.compile(r"{\{death.*(\d\d\d\d)\| *(\d+)\| *(\d+)\| *(\d\d\d\d)\| *(\d+)\| *(\d+)")
     INFOBOX_LIST = re.compile(r"\|([^\|}]*)", re.DOTALL)
-    INFOBOX_LT_GT = re.compile(r"&lt.*&gt;", re.DOTALL)
+    INFOBOX_LT_GT = re.compile(r"&lt.*?&gt;", re.DOTALL)
     INFOBOX_CITATION = re.compile(r"\{\{cit.*?\}\}", flags=re.I | re.DOTALL)
     INFOBOX_MARRIAGE = re.compile("\{\{ *marriage *\|(.*?)\}\}", flags=re.I | re.DOTALL)
     
@@ -56,7 +56,7 @@ def parse_infobox(body):
         return text
 
     
-    infobox := PAGE_GET_INFOBOX.findall(body):
+    infobox = PAGE_GET_INFOBOX.findall(body)
     if not infobox:
         return "{}"
     params = infobox[0].split("\n|")

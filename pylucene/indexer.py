@@ -10,19 +10,25 @@ import os
 import re
 import time
 
+DATA_ROOT_DIR = "/mnt/data/pyspark_data"
+
 def create_index():
     index_path = File("/mnt/data/index").toPath()
     store = FSDirectory.open(index_path)
     config = IndexWriterConfig(StandardAnalyzer())
     config.setOpenMode(IndexWriterConfig.OpenMode.CREATE)
     writer = IndexWriter(store, config)
-    with open("/mnt/data/musicians") as f:
-        for line in f:
-            musician = MusicianPageObject.from_json(line)
-            doc = Document()
-            doc.add(Field("title", musician.title, TextField.TYPE_STORED))
-            doc.add(Field("full_info", line, TextField.TYPE_STORED))
-            writer.addDocument(doc)
+
+    files = os.listdir(DATA_ROOT_DIR)
+    for file_name in files:
+        with open(DATA_ROOT_DIR + "/" + file_name, "r", encoding="utf8") as f:
+            for line in f:
+                musician = MusicianPageObject.from_json(line)
+                doc = Document()
+                doc.add(Field("title", musician.title, TextField.TYPE_STORED))
+                # doc.add(Field("file_name"), )
+                doc.add(Field("full_info", line, TextField.TYPE_STORED))
+                writer.addDocument(doc)
     writer.commit()
     writer.close()
 

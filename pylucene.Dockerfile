@@ -14,7 +14,5 @@ RUN cd jcc \
     && NO_SHARED=1 JCC_JDK=/usr/lib/jvm/temurin python setup.py install
 RUN make all install JCC='python -m jcc' PYTHON=python NUM_FILES=16
 
-RUN pip install regex
-
 WORKDIR /usr/src
 RUN rm -rf pylucene
