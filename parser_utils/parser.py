@@ -46,6 +46,17 @@ class WikiParser:
 
         return musicians
 
+    def get_test_data(self, text):
+        """Returns a string of the musician pages from a file."""
+        data = ""
+        pages = regexes.SPLIT_PAGES.findall(text)
+        for page in pages:
+            occupations = regexes.PAGE_GET_OCCUPATION.findall(page)
+            for occupation in occupations:
+                if self.is_musician_page(occupation):
+                    data += "<page>" + page + "</page>\n"
+        return data
+
     def is_musician_page(self, occupation):
         """Returns True if the occupation is a musician occupation."""
         return any(x in occupation.lower() for x in self.musician_flags)
