@@ -5,6 +5,7 @@ from pyspark.sql.types import StringType
 
 @udf(returnType=StringType())
 def parse_discography(text):
+    """Parses discography from text."""
     PAGE_GET_DISCOGRAPHY = re.compile(r"== *?Discography *==\n(.*?\n)==[\w\s]", flags=re.I | re.DOTALL)
     DISCOGRAPHY_SUBCATEGORIES = re.compile(r"(?:'''|===) *?(.*?) *?(?:'''|===)\n(?:(.*?)\n\n|\{\|(.*?)\n\|\}\n)",
                                        flags=re.I | re.DOTALL

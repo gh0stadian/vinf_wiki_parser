@@ -8,6 +8,7 @@ class WikiIO:
         self.open_file()
 
     def open_file(self):
+        """Opens the xml file."""
         try:
             self.xml_fd = open(self.path, "r", encoding="utf8")
 
@@ -15,6 +16,7 @@ class WikiIO:
             print(f"Could not open file.\n{e}")
 
     def get_chunk(self, chunk=262144):
+        """Returns a chunk of the xml file."""
         try:
             out = self.residual + self.xml_fd.read(chunk)
             last_page_end = out.rfind("</page>")

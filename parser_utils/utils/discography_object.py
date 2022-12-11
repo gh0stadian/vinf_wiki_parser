@@ -8,6 +8,7 @@ class DiscographyObject():
 
     @classmethod
     def from_raw(cls, raw_discography):
+        """Creates a DiscographyObject from a raw discography string."""
         discography = []
         discography_subcategories = regexes.DISCOGRAPHY_SUBCATEGORIES.findall(raw_discography)
         if not discography_subcategories:
@@ -20,6 +21,7 @@ class DiscographyObject():
         return DiscographyObject(discography)
 
     def __str__(self):
+        """Returns a string representation of the DiscographyObject."""
         o = "Discography".ljust(80, "-") + "\n"
         for item in self.songs:
             if isinstance(item, tuple):

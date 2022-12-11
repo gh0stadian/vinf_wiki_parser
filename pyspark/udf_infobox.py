@@ -5,6 +5,7 @@ from pyspark.sql.types import StringType
 
 @udf(returnType=StringType())
 def parse_infobox(body):
+    """Parses infobox from text."""
     PAGE_GET_INFOBOX = re.compile(r"\{\{Infobox(?:(?:\{\{(?:(?:\{\{(?:[^{}])*\}\})|(?:[^{}]))*\}\})|(?:[^{}]))*\}\}", flags=re.I | re.DOTALL)
     INFOBOX_VAR_VAL = re.compile(r"(\S*)\s*=\s*(.*)", re.DOTALL)
     INFOBOX_BIRTH_YMD = re.compile(r"\{\{birth.*(\d\d\d\d)\| *(\d+)\| *(\d+)", flags=re.I | re.DOTALL)
@@ -16,16 +17,19 @@ def parse_infobox(body):
     INFOBOX_MARRIAGE = re.compile("\{\{ *marriage *\|(.*?)\}\}", flags=re.I | re.DOTALL)
     
     def parse_birth_date(text):
+        """Parses birth date from text."""
         if match := INFOBOX_BIRTH_YMD.search(text):
             return match.group(1) + "/" + match.group(2) + "/" + match.group(3)
         elif match := INFOBOX_BIRTH_Y.search(text):
             return match.group(1)
     
     def parse_death_date(text):
+        """Parses death date from text."""
         if match := INFOBOX_DEATH_YMD.search(text):
             return match.group(1) + "/" + match.group(2) + "/" + match.group(3)
     
     def remove_special_characters(text):
+        """Removes special characters from text."""
         text = remove_brackets(text)
         text = parse_lists(text)
         text = text.replace('&amp;', '&')
@@ -37,17 +41,21 @@ def parse_infobox(body):
         return text
     
     def split_or(text):
+        """Splits text by '|'."""
         if text.group(1):
             return ",".join(text.group(1).split('|'))
         
     def split_star(text):
+        """Splits text by '*'."""
         return (", ".join(text.split('*')[1:]))[:-2].replace('\n', '')
     
     def remove_brackets(text):
+        """Removes brackets from text."""
         text = text.replace("[[", '')
         return text.replace("]]", '')
     
     def parse_lists(text):
+        """Parses lists from text."""
         if text.lower().startswith(('{{hlist', '{{URL', '{{url', '{{website', '{{marriage', '{{nobold', '{{unbulleted',
                                     '{{csv', '{{nihongo', '{{ubl', '{{ill', '{{circa')):
             return ", ".join(INFOBOX_LIST.findall(text))

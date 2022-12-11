@@ -5,6 +5,7 @@ from pyspark.sql.types import StringType
 
 @udf(returnType=StringType())
 def parse_awards(text):
+    """Parses awards from text."""
     PAGE_GET_AWARDS = re.compile(r"== *?Awards and nominations *?==\n(.*?\n)==[\w\s]", flags=re.I | re.DOTALL)
     AWARDS_REPETITION = re.compile(r"\*\*\*(\d)\*\*\*(.*)", re.DOTALL)
     AWARDS_CELL = re.compile(r"\|\s*(.*?)\n")
@@ -18,6 +19,7 @@ def parse_awards(text):
     INFOBOX_CITATION = re.compile(r"\{\{cit.*?\}\}", flags=re.I | re.DOTALL)
     
     def preprocess_awards(text):
+        """Preprocesses the awards section of a page."""
         text = text.replace('&amp;', '&')
         text = text.replace('&ndash;', '-')
         text = text.replace('&quot;', '"')

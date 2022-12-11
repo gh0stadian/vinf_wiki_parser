@@ -6,7 +6,7 @@ def main():
     wiki = WikiIO("data/raw/enwiki-20221001-pages-articles-multistream6.xml-p958046p1483661")
     parser = WikiParser("data/musicians")
 
-    # TODO UNCOMMENT AND SET UNLIMITED
+
     for i in range(1000):
         chunk = wiki.get_chunk()
         parser.parse(chunk)

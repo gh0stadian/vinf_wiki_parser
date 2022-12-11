@@ -13,12 +13,14 @@ class WikiParser:
             os.remove(self.output_file)
 
     def parse(self, text):
+        """Parses a wiki dump file and returns a list of MusicianPageObjects."""
         pages = regexes.SPLIT_PAGES.findall(text)
         musicians = self.filter_musicians(pages)
         if musicians:
             self.write_musicians(musicians)
 
     def get_musician_flags(self, flags_file_path):
+        """Returns a list of musician occupation flags."""
         musician_flags = []
         with open(flags_file_path, 'r', encoding="utf8") as f:
             while flag := f.readline().rstrip():
@@ -26,6 +28,7 @@ class WikiParser:
         return musician_flags
 
     def write_musicians(self, musicians):
+        """Writes a list of MusicianPageObjects to a file."""
         with open(self.output_file, 'a', encoding="utf8") as f:
             for musician in musicians:
                 json.dump(musician.to_json(), f)
@@ -33,6 +36,7 @@ class WikiParser:
                 # f.write(str(musician.to_json()) + "\n")
 
     def filter_musicians(self, pages):
+        """Filters out musician pages from a list of pages."""
         musicians = []
         for page in pages:
             occupations = regexes.PAGE_GET_OCCUPATION.findall(page)
@@ -44,4 +48,5 @@ class WikiParser:
         return musicians
 
     def is_musician_page(self, occupation):
+        """Returns True if the occupation is a musician occupation."""
         return any(x in occupation.lower() for x in self.musician_flags)

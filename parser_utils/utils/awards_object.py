@@ -1,7 +1,7 @@
 import re
 import parser_utils.utils.regexes as regexes
 
-from parser_utils.utils.utils import remove_html_tags, preprocess_awards, remove_header_footer
+from parser_utils.utils.utils import remove_html_rowspan, preprocess_awards, remove_header_footer
 
 
 class AwardsObject():
@@ -10,8 +10,9 @@ class AwardsObject():
 
     @classmethod
     def from_raw(cls, raw_awards):
+        """Creates an AwardsObject from a raw awards string."""
         awards = preprocess_awards(raw_awards)
-        awards = remove_html_tags(awards)
+        awards = remove_html_rowspan(awards)
         awards = remove_header_footer(awards)
 
         split = awards.split("|-")
@@ -29,6 +30,7 @@ class AwardsObject():
         return AwardsObject(awards_table)
 
     def __str__(self):
+        """Returns a string representation of the object."""
         o = "Awards".ljust(80, "-") + "\n"
         for row in self.awards_list:
             for element in row:

@@ -10,6 +10,7 @@ PAGE_GET_INFOBOX = re.compile(r"\{\{Infobox(?:(?:\{\{(?:(?:\{\{(?:[^{}])*\}\})|(
                               flags=re.I | re.DOTALL)
 PAGE_GET_DISCOGRAPHY = re.compile(r"== *?Discography *==\n(.*?\n)==[\w\s]", flags=re.I | re.DOTALL)
 PAGE_GET_AWARDS = re.compile(r"== *?Awards and nominations *?==\n(.*?\n)==[\w\s]", flags=re.I | re.DOTALL)
+PAGE_GET_AWARDS2 = re.compile(r"== *?Awards *?==\n(.*?\n)==[\w\s]", flags=re.I | re.DOTALL)
 
 # INFOBOX REGEXES
 INFOBOX_VAR_VAL = re.compile(r"(\S*)\s*=\s*(.*)", re.DOTALL)
@@ -28,11 +29,11 @@ DISCOGRAPHY_SUBCATEGORIES = re.compile(r"(?:'''|===) *?(.*?) *?(?:'''|===)\n(?:(
 DISCOGRAPHY_SONGS = re.compile(r"''\[*(.*?)\]*''")
 
 
-AWARDS_REPETITION = re.compile(r"\*\*\*(\d)\*\*\*(.*)", re.DOTALL)
+AWARDS_REPETITION = re.compile(r"\*\*\*(\d+)\*\*\*(.*)", re.DOTALL)
 AWARDS_CELL = re.compile(r"\|\s*(.*?)\n")
-AWARDS_ROWSPAN = re.compile(r"rowspan=.*?(\d).*?\|\s*", re.DOTALL)
+AWARDS_ROWSPAN = re.compile(r"rowspan=.*?(\d+).*?\|\s*", re.DOTALL)
 AWARDS_HTML_TAG = re.compile(r"[\w]*?=[^\||\n]*\|\s*", re.DOTALL)
 AWARDS_HEADER_1 = header = re.compile(r"(\{\|.*?)\|\s*-", re.DOTALL)
 AWARDS_HEADER_2 = re.compile(r"^\{\{.*?\}\}\n\|-", re.DOTALL)
-AWARDS_NOMINATED_FLAG = re.compile(r"\{\{\s*nom\s*\}\}", flags=re.I | re.DOTALL)
-AWARDS_WINNER_FLAG = re.compile(r"\{\{\s*won\s*\}\}", flags=re.I | re.DOTALL)
+AWARDS_NOMINATED_FLAG = re.compile(r"\{\{\s*nom[^}]*?\}\}", flags=re.I | re.DOTALL)
+AWARDS_WINNER_FLAG = re.compile(r"\{\{\s*won[^}]*?\}\}", flags=re.I | re.DOTALL)

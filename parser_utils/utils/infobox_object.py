@@ -6,6 +6,7 @@ class InfoboxObject():
 
     @classmethod
     def from_raw(cls, raw_infobox):
+        """Creates an InfoboxObject from a raw infobox string."""
         params = raw_infobox.split("\n|")
         params_dict = {}
 
@@ -15,6 +16,7 @@ class InfoboxObject():
         return InfoboxObject(params_dict)
 
     def __str__(self):
+        """Returns a string representation of the object."""
         o = "About".ljust(80, "-") + "\n"
         for key, value in self.about.items():
             o += " " * 5 + f"{key}: {value}\n"
