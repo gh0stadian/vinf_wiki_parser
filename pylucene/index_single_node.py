@@ -10,7 +10,7 @@ import os
 import re
 import time
 
-DATA_FILE_NAME = "/mnt/data/musicians"
+DATA_FILE_NAME = "/mnt/data/musicians_sample"
 
 
 def get_entities_from_file(path):
