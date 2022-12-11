@@ -61,7 +61,7 @@ class MusicianPageObject:
 
     def to_json(self):
         """Returns a json dump of the object."""
-        return {"title": self.title, **self.about, **self.discography.__dict__, **self.awards.__dict__}
+        return {"title": self.title, **self.about.__dict__, **self.discography.__dict__, **self.awards.__dict__}
 
     def __str__(self):
         """Returns a string representation of the object."""

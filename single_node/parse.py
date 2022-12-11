@@ -3,11 +3,11 @@ from parser_utils.parser import WikiParser
 
 
 def main():
-    wiki = WikiIO("data/raw/enwiki-20221001-pages-articles-multistream6.xml-p958046p1483661")
-    parser = WikiParser("data/musicians")
+    wiki = WikiIO("../data/raw/enwiki-latest-pages-articles-multistream16.xml-p20460153p20570392")
+    parser = WikiParser("../data/musicians")
 
 
-    for i in range(1000):
+    for i in range(10000):
         chunk = wiki.get_chunk()
         parser.parse(chunk)
 

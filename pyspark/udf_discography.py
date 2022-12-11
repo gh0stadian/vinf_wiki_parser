@@ -8,10 +8,9 @@ def parse_discography(text):
     """Parses discography from text."""
     PAGE_GET_DISCOGRAPHY = re.compile(r"== *?Discography *==\n(.*?\n)==[\w\s]", flags=re.I | re.DOTALL)
     DISCOGRAPHY_SUBCATEGORIES = re.compile(r"(?:'''|===) *?(.*?) *?(?:'''|===)\n(?:(.*?)\n\n|\{\|(.*?)\n\|\}\n)",
-                                       flags=re.I | re.DOTALL
-                                       )
+                                           flags=re.I | re.DOTALL
+                                           )
     DISCOGRAPHY_SONGS = re.compile(r"''\[*(.*?)\]*''")
-    
 
     discography = []
     raw_discography = PAGE_GET_DISCOGRAPHY.search(text)
@@ -19,8 +18,7 @@ def parse_discography(text):
         return "[]"
     else:
         raw_discography = raw_discography.group(1)
-        
-    
+
     discography_subcategories = DISCOGRAPHY_SUBCATEGORIES.findall(raw_discography)
     if not discography_subcategories:
         discography = list(set(DISCOGRAPHY_SONGS.findall(raw_discography)))
@@ -29,5 +27,5 @@ def parse_discography(text):
         subtitle = subtitle.replace("=", "").replace("[[", "").replace("]]", "")
         if songs_in_body:
             discography.append((subtitle.replace("=", ""), songs_in_body))
-    
+
     return str(discography)

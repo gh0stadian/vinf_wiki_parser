@@ -33,7 +33,6 @@ class WikiParser:
             for musician in musicians:
                 json.dump(musician.to_json(), f)
                 f.write("\n")
-                # f.write(str(musician.to_json()) + "\n")
 
     def filter_musicians(self, pages):
         """Filters out musician pages from a list of pages."""

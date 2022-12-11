@@ -6,7 +6,8 @@ from pyspark.sql.types import StringType
 @udf(returnType=StringType())
 def parse_infobox(body):
     """Parses infobox from text."""
-    PAGE_GET_INFOBOX = re.compile(r"\{\{Infobox(?:(?:\{\{(?:(?:\{\{(?:[^{}])*\}\})|(?:[^{}]))*\}\})|(?:[^{}]))*\}\}", flags=re.I | re.DOTALL)
+    PAGE_GET_INFOBOX = re.compile(r"\{\{Infobox(?:(?:\{\{(?:(?:\{\{(?:[^{}])*\}\})|(?:[^{}]))*\}\})|(?:[^{}]))*\}\}",
+                                  flags=re.I | re.DOTALL)
     INFOBOX_VAR_VAL = re.compile(r"(\S*)\s*=\s*(.*)", re.DOTALL)
     INFOBOX_BIRTH_YMD = re.compile(r"\{\{birth.*(\d\d\d\d)\| *(\d+)\| *(\d+)", flags=re.I | re.DOTALL)
     INFOBOX_BIRTH_Y = re.compile(r"\{\{birth.*(\d\d\d\d)", flags=re.I | re.DOTALL)
@@ -15,7 +16,7 @@ def parse_infobox(body):
     INFOBOX_LT_GT = re.compile(r"&lt.*?&gt;", re.DOTALL)
     INFOBOX_CITATION = re.compile(r"\{\{cit.*?\}\}", flags=re.I | re.DOTALL)
     INFOBOX_MARRIAGE = re.compile("\{\{ *marriage *\|(.*?)\}\}", flags=re.I | re.DOTALL)
-    
+
     def parse_birth_date(text):
         """Parses birth date from text."""
         if match := INFOBOX_BIRTH_YMD.search(text):
@@ -63,7 +64,6 @@ def parse_infobox(body):
             return split_star(text)
         return text
 
-    
     infobox = PAGE_GET_INFOBOX.findall(body)
     if not infobox:
         return "{}"
