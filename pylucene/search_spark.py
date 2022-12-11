@@ -40,7 +40,7 @@ def search(query, list_only=False, limit=10):
     store = FSDirectory.open(index_path)
     searcher = IndexSearcher(DirectoryReader.open(store))
 
-    parser = MultiFieldQueryParser(["title", "discography", "awards"], StandardAnalyzer())
+    parser = MultiFieldQueryParser(["title", "discography", "awards", "about"], StandardAnalyzer())
     query = MultiFieldQueryParser.parse(parser, query)
     scoreDocs = searcher.search(query, limit).scoreDocs
 

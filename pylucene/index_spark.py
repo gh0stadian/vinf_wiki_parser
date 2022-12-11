@@ -38,6 +38,7 @@ def create_index():
             musician = MusicianPageObject.from_json(entity)
             doc = Document()
             doc.add(Field("title", musician.title, TextField.TYPE_STORED))
+            doc.add(Field("about", str(musician.about), TextField.TYPE_NOT_STORED))
             doc.add(Field("discography", str(musician.discography), TextField.TYPE_NOT_STORED))
             doc.add(Field("awards", str(musician.awards), TextField.TYPE_NOT_STORED))
             doc.add(StoredField("file_path", DATA_ROOT_DIR + "/" + file_name))
